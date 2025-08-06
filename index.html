@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Portfolio</title>
+    <style>
+      /* Reset & base styles */
+      body {
+        background: linear-gradient(135deg, #e0e7ff 0%, #fff7f4 100%);
+        color: #222;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+        min-height: 100vh;
+      }
+      header {
+        background: #22223b;
+        color: #f9fafc;
+        padding: 1.4rem 2rem 1rem 2rem;
+        text-align: center;
+        box-shadow: 0 2px 9px rgba(20, 23, 63, 0.04);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      header h1 {
+        margin-bottom: 0.3rem;
+        letter-spacing: 1px;
+        font-size: 2.3rem;
+        text-shadow: 1px 2px 12px rgba(33, 33, 55, 0.07);
+      }
+      nav a {
+        color: #fd6585;
+        margin: 0 1rem;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border-bottom: 2px solid transparent;
+        padding: 0 2px 2px 2px;
+        transition: color 0.2s, border-bottom 0.25s;
+      }
+      nav a:hover,
+      nav a.active {
+        color: #1e2a78;
+        border-bottom: 2.5px solid #fd6585;
+      }
+      main {
+        max-width: 1000px;
+        margin: 3rem auto 2rem auto;
+        padding: 0 1.6rem;
+        width: 100%;
+      }
+      section {
+        margin-bottom: 3rem;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.75);
+        padding: 2.3rem 1.4rem 2.3rem 1.4rem;
+        box-shadow: 0 6px 30px rgba(110, 110, 160, 0.08);
+      }
+      h2 {
+        margin-bottom: 1.6rem;
+        color: #4b2996;
+        font-size: 1.7rem;
+        letter-spacing: 0.5px;
+        border-left: 7px solid #fd6585;
+        padding-left: 13px;
+        background: linear-gradient(90deg, #fd6585 0%, #a8edea 70%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      #about p {
+        font-size: 1.15rem;
+        color: #243954;
+      }
+      .projects-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+        gap: 2rem;
+      }
+      .project {
+        background: linear-gradient(135deg, #fff7f4 80%, #f2e8ff 100%);
+        box-shadow: 0 2px 16px rgba(180, 160, 220, 0.09);
+        border-radius: 13px;
+        padding: 1.5rem 1rem 1.35rem 1rem;
+        transition: transform 0.19s, box-shadow 0.19s;
+        position: relative;
+        overflow: hidden;
+      }
+      .project::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0%;
+        width: 135px;
+        height: 135px;
+        background: radial-gradient(
+          circle at center,
+          #fd658560 30%,
+          transparent 70%
+        );
+        z-index: 0;
+        transform: translate(-50%, -56%);
+        pointer-events: none;
+      }
+      .project:hover {
+        transform: translateY(-8px) scale(1.022);
+        box-shadow: 0 12px 33px rgba(186, 109, 248, 0.15);
+      }
+      .project h3 {
+        z-index: 1;
+        position: relative;
+        margin-bottom: 0.66rem;
+        color: #963e8b;
+        font-size: 1.12rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+      .project p {
+        z-index: 1;
+        position: relative;
+        color: #404064;
+        font-size: 1.02rem;
+        margin-bottom: 0.66rem;
+      }
+      .project a {
+        z-index: 1;
+        position: relative;
+        display: inline-block;
+        color: #fd6585;
+        background: #edeefd;
+        padding: 6px 13px;
+        margin-top: 0.22rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.99rem;
+        box-shadow: 0 2px 9px #fd658545;
+        transition: all 0.2s;
+      }
+      .project a:hover {
+        background: #fd6585;
+        color: white;
+        box-shadow: 0 5px 15px #fd658535;
+      }
+      #contact form {
+        max-width: 420px;
+        background: linear-gradient(120deg, #fff3f9 85%, #e7e8fd 100%);
+        padding: 1.3rem 2rem 1.6rem 2rem;
+        border-radius: 9px;
+        box-shadow: 0 2px 22px rgba(180, 100, 160, 0.06);
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+      }
+      #contact label {
+        margin-bottom: 0.19rem;
+        font-weight: 600;
+        color: #7e3dc3;
+        margin-top: 0.85rem;
+      }
+      #contact input,
+      #contact textarea {
+        width: 100%;
+        padding: 0.67rem;
+        margin-bottom: 0.66rem;
+        border: 1.2px solid #f0bedd;
+        border-radius: 4px;
+        font-size: 1rem;
+        outline: none;
+        transition: border 0.2s;
+        background: #fdf9ff;
+      }
+      #contact input:focus,
+      #contact textarea:focus {
+        border-color: #fd6585;
+      }
+      #contact button {
+        background: linear-gradient(92deg, #fd6585 0%, #a8edea 90%);
+        border: none;
+        padding: 0.83rem 1.2rem;
+        color: #22223b;
+        font-weight: 700;
+        cursor: pointer;
+        border-radius: 6px;
+        font-size: 1.07rem;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+        transition: background 0.22s, color 0.22s;
+      }
+      #contact button:hover {
+        background: #4b2996;
+        color: #fff;
+      }
+      footer {
+        text-align: center;
+        padding: 1.5rem 0 0.9rem 0;
+        color: #888;
+        font-size: 0.93rem;
+      }
+
+      /* --- Responsive Design Tweaks --- */
+      @media (max-width: 700px) {
+        main {
+          padding: 0 2vw;
+        }
+        .projects-list {
+          grid-template-columns: 1fr;
+        }
+        section {
+          border-radius: 0;
+          padding: 1.5rem 0.6rem;
+        }
+        #contact form {
+          padding: 1.09rem 1rem 1.09rem 1rem;
+        }
+      }
+
+      @media (max-width: 450px) {
+        header h1 {
+          font-size: 1.49rem;
+        }
+        h2 {
+          font-size: 1.12rem;
+          padding-left: 7px;
+        }
+        body {
+          font-size: 0.97rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Akash Nigale</h1>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="about">
+        <h2>About Me</h2>
+        <p>
+          I am a passionate developer and data scientist with a strong
+          foundation in <b>Python</b>, <b>Machine Learning (ML)</b>,
+          <b>Deep Learning (DL)</b>, and
+          <b>Natural Language Processing (NLP)</b>. I have hands-on experience
+          building and deploying end-to-end data science projects including
+          developing, optimizing, and maintaining various <b>ML models</b> for
+          real-world applications. I am also skilled in creating and
+          contributing to Python libraries that accelerate data workflows and
+          analytical processes. My expertise allows me to deliver robust,
+          scalable, and impactful solutions in the modern data-driven landscape.
+        </p>
+      </section>
+
+      <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-list" id="projects-list">
+          <h3>RAG-Based Chatbot for Pharma HCP Engagement</h3>
+          <p>
+            Developed a generative AI chatbot on Azure combining document
+            retrieval and generative models to deliver accurate, context-aware
+            medical responses, enhancing communication between Medical
+            Representatives and Healthcare Professionals in pharma.
+          </p>
+          <h3>
+            Intelligent Legal Advisor: RAG-Driven Chatbot for Legal Services
+          </h3>
+          <p>
+            Developed a RAG-based generative AI chatbot to provide contextual
+            legal insights by retrieving case laws and statutes, enhancing legal
+            research and decision-making efficiency for legal professionals.
+          </p>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2>Contact Me</h2>
+        <form id="contact-form" onsubmit="submitForm(event)">
+          <label for="name">Name:</label>
+          <input type="text" id="name" required placeholder="Your Name" />
+
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            required
+            placeholder="you@example.com"
+          />
+
+          <label for="message">Message:</label>
+          <textarea
+            id="message"
+            rows="5"
+            required
+            placeholder="Your message here..."
+          ></textarea>
+
+          <button type="submit">Send</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>&copy; 2025 John Doe</footer>
+
+    <script>
+      // Sample project data
+      const projects = [];
+
+      const projectsListEl = document.getElementById("projects-list");
+
+      // Render projects dynamically
+      projects.forEach(({ title, description, url }) => {
+        const projectEl = document.createElement("div");
+        projectEl.className = "project";
+        projectEl.innerHTML = `
+        <h3>${title}</h3>
+        <p>${description}</p>
+        <a href="${url}" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+      `;
+        projectsListEl.appendChild(projectEl);
+      });
+
+      // Simple form submission handler
+      function submitForm(event) {
+        event.preventDefault();
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const message = document.getElementById("message").value.trim();
+
+        if (name && email && message) {
+          alert(`Thank you, ${name}! Your message has been received.`);
+          event.target.reset();
+        } else {
+          alert("Please fill all fields.");
+        }
+      }
+    </script>
+  </body>
+</html>
